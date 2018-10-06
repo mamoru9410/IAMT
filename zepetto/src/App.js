@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import ScreenBlockerBlocked from "./components/ScreenBlockerBlocked";
 import ScreenBlockerSuccess from "./components/ScreenBlockerSuccess";
+import DirectlyTermList from "./components/DirectlyTermList";
 
 class App extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class App extends React.Component {
   // }
   render() {
     return (
-      <AppStyled className="App">
+      <AppStyled className="App" dragSwither={this.state.dragSwither}>
         <ScreenBlockerBlocked
           modalBlocked={this.state.modalBlocked}
           modalText="ACCESS DENIDED"
@@ -69,26 +70,7 @@ class App extends React.Component {
           Exploit by TAKU
         </h3>
         {/* <Hacks /> */}
-        <DirectlyList>
-          <li>
-            <IconCase>
-              <Directly />
-              <DirectlyText>DL Data</DirectlyText>
-            </IconCase>
-          </li>
-          <li>
-            <IconCase>
-              <Directly />
-              <DirectlyText>Terminal</DirectlyText>
-            </IconCase>
-          </li>
-          <li>
-            <IconCase>
-              <Directly />
-              <DirectlyText>Decryptor</DirectlyText>
-            </IconCase>
-          </li>
-        </DirectlyList>
+        <DirectlyTermList />
       </AppStyled>
     );
   }
@@ -97,6 +79,11 @@ class App extends React.Component {
 export default App;
 
 const AppStyled = styled.div`
+  * {
+    -ms-user-select: ${props => (props.dragSwither ? "none" : "")};
+    -webkit-user-select: ${props => (props.dragSwither ? "none" : "")};
+    -moz-user-select: ${props => (props.dragSwither ? "none" : "")};
+  }
   overflow: hidden;
   height: 100vh;
   background: #303030;
@@ -135,58 +122,4 @@ const Hacks = styled.div`
   height: 500px;
   border-radius: 8px;
   background: #000;
-`;
-
-const IconCase = styled.div`
-  width: 100px;
-`;
-
-const DirectlyList = styled.ul`
-  position: absolute;
-  top: 64px;
-  right: 36px;
-  li {
-    margin-bottom: 32px;
-  }
-`;
-
-const Directly = styled.div`
-  position: relative;
-  z-index: 0;
-  margin: 0 auto;
-  width: 55px;
-  height: 40px;
-  border-radius: 2px;
-  background: #ccc;
-  &:before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-    width: 100%;
-    height: 90%;
-    box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.3);
-    border-radius: 2px;
-    background: #f5f5f5;
-  }
-  &:after {
-    content: "";
-    position: absolute;
-    top: -4px;
-    left: 0;
-    z-index: 1;
-    width: 40%;
-    height: 12px;
-    border-radius: 2px;
-    background: #ccc;
-  }
-`;
-
-const DirectlyText = styled.span`
-  display: block;
-  margin-top: 12px;
-  text-align: center;
-  font-size: 12px;
-  color: #f5f5f5;
 `;

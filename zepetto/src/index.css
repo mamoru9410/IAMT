@@ -15,6 +15,10 @@ body {
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
 }
+html,
+body {
+  background: #303030;
+}
 li {
   list-style: none;
 }
