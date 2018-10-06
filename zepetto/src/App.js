@@ -1,12 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
+import ScreenBlockerBlocked from "./components/ScreenBlockerBlocked";
+import ScreenBlockerSuccess from "./components/ScreenBlockerSuccess";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       nowTime: new Date(),
-      blockModal: false
+      modalBlocked: false,
+      modalSuccess: false
     };
   }
   timer = () => {
@@ -16,15 +20,27 @@ class App extends React.Component {
       });
     }, 1000);
   };
-  keyDown = () => {
+  keyDown = e => {
+    if (e.altKey && e.ctrlKey && e.keyCode === 90) {
+      this.setState({
+        modalBlocked: false,
+        modalSuccess: true
+      });
+      setTimeout(() => {
+        this.setState({
+          modalSuccess: false
+        });
+      }, 3000);
+      return;
+    }
     this.setState({
-      blockModal: true
+      modalBlocked: true
     });
   };
   componentDidMount() {
     this.timer();
-    document.addEventListener("keydown", () => {
-      this.keyDown();
+    document.addEventListener("keydown", e => {
+      this.keyDown(e);
     });
   }
   // getDerivedStateFromProps() {
@@ -33,9 +49,13 @@ class App extends React.Component {
   render() {
     return (
       <AppStyled className="App">
-        <ScreenBlocker
-          blockModal={this.state.blockModal}
+        <ScreenBlockerBlocked
+          modalBlocked={this.state.modalBlocked}
           modalText="ACCESS DENIDED"
+        />
+        <ScreenBlockerSuccess
+          modalSuccess={this.state.modalSuccess}
+          modalText="ACCESS GRANTED"
         />
         {this.state.nowTime.toLocaleTimeString()}
         <h1>
@@ -169,58 +189,4 @@ const DirectlyText = styled.span`
   text-align: center;
   font-size: 12px;
   color: #f5f5f5;
-`;
-
-export const ScreenBlocker = props => (
-  <Blocker blockModal={props.blockModal}>
-    <Modal>
-      <ModalText>{props.modalText}</ModalText>
-    </Modal>
-  </Blocker>
-);
-const Blocker = styled.div`
-  display: ${props => (props.blockModal ? "block" : "none")};
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
-`;
-
-const Modal = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 380px;
-  height: 120px;
-  border: solid 2px #fc2c1e;
-  background: #000;
-  transform: translate3d(-50%, -50%, 0);
-  animation: modalBackLight 1s steps(1, start) infinite;
-
-  @keyframes modalBackLight {
-    0% {
-      background: #000;
-    }
-    50% {
-      background: #000;
-    }
-    100% {
-      background: #fc2c1e;
-    }
-  }
-`;
-
-const ModalText = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto;
-  height: 42px;
-  font-size: 32px;
-  font-weight: bold;
-  text-align: center;
-  text-shadow: 2px 2px 4px #000;
-  color: #fc2c1e;
 `;
