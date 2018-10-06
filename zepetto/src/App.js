@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import ScreenBlockerBlocked from "./components/ScreenBlockerBlocked";
 import ScreenBlockerSuccess from "./components/ScreenBlockerSuccess";
-import DirectlyTermList from "./components/DirectlyTermList";
+import DirectlyList from "./components/DirectlyList";
 
 class App extends React.Component {
   constructor(props) {
@@ -38,6 +38,7 @@ class App extends React.Component {
       modalBlocked: true
     });
   };
+
   componentDidMount() {
     this.timer();
     document.addEventListener("keydown", e => {
@@ -70,7 +71,7 @@ class App extends React.Component {
           Exploit by TAKU
         </h3>
         {/* <Hacks /> */}
-        <DirectlyTermList />
+        <DirectlyList />
       </AppStyled>
     );
   }

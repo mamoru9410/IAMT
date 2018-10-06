@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export default class DirectlyTerm extends React.Component {
+export default class Directly extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,12 +11,6 @@ export default class DirectlyTerm extends React.Component {
       posY: 0
     };
   }
-  userAgentTerm = () => {
-    // console.log(window.navigator);
-    // .userAgent
-    // .toLowerCase()
-    // let element = document.querySelector("ul");
-  };
   dragMove = e => {
     this.setState({
       x: e.pageX - this.state.posX,
@@ -38,56 +32,22 @@ export default class DirectlyTerm extends React.Component {
   };
   render() {
     return (
-      <DirectlyList>
-        <li>
-          <IconCase>
-            <Directly />
-            <DirectlyText>DL Data</DirectlyText>
-          </IconCase>
-        </li>
-        <li>
-          <IconCase>
-            <Directly />
-            <DirectlyText>Terminal</DirectlyText>
-          </IconCase>
-        </li>
-        <li>
-          <IconCase>
-            <Directly />
-            <DirectlyText>Decryptor</DirectlyText>
-          </IconCase>
-        </li>
-        <li>
-          <IconCase
-            onMouseDown={this.dragMove}
-            onMouseUp={this.endDrag}
-            posX={this.state.posX}
-            posY={this.state.posY}
-            nowPosX={this.state.nowPosX}
-            nowPosY={this.state.nowPosY}
-            switch={this.state.switchDrag}
-          >
-            <Directly />
-            <DirectlyText>UserAgent</DirectlyText>
-          </IconCase>
-        </li>
-        {/* <div onClick={this.handleClick}>こんにtはすすすすす</div> */}
-      </DirectlyList>
+      <IconCase
+        onMouseDown={this.dragMove}
+        onMouseUp={this.endDrag}
+        onClick={this.props.terminalOpen}
+        posX={this.state.posX}
+        posY={this.state.posY}
+        nowPosX={this.state.nowPosX}
+        nowPosY={this.state.nowPosY}
+      >
+        <Icon />
+        <Text>{this.props.directlyName}</Text>
+      </IconCase>
     );
   }
 }
 
-const DirectlyList = styled.ul`
-  position: absolute;
-  top: 64px;
-  right: 36px;
-  li {
-    position: relative;
-    width: 55px;
-    height: 40px;
-    margin-bottom: 64px;
-  }
-`;
 const IconCase = styled.div`
   position: absolute;
   top: ${props => `${props.posY}px`};
@@ -97,7 +57,7 @@ const IconCase = styled.div`
   z-index: 1000;
   cursor: move;
 `;
-const Directly = styled.div`
+const Icon = styled.div`
   position: relative;
   z-index: 0;
   margin: 0 auto;
@@ -130,7 +90,7 @@ const Directly = styled.div`
   }
 `;
 
-const DirectlyText = styled.span`
+const Text = styled.span`
   display: block;
   margin-top: 12px;
   text-align: center;
