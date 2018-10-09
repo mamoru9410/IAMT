@@ -50,7 +50,7 @@ class App extends React.Component {
   // }
   render() {
     return (
-      <AppStyled className="App" dragSwither={this.state.dragSwither}>
+      <AppStyled className="App">
         <ScreenBlockerBlocked
           modalBlocked={this.state.modalBlocked}
           modalText="ACCESS DENIDED"
@@ -81,13 +81,13 @@ export default App;
 
 const AppStyled = styled.div`
   * {
-    -ms-user-select: ${props => (props.dragSwither ? "none" : "")};
-    -webkit-user-select: ${props => (props.dragSwither ? "none" : "")};
-    -moz-user-select: ${props => (props.dragSwither ? "none" : "")};
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
   }
   overflow: hidden;
   height: 100vh;
-  background: #303030;
+  background: #202020;
   font-family: Avenir Next;
   h1 {
     margin: 120px auto 60px;

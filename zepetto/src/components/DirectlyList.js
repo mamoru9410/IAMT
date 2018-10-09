@@ -30,6 +30,7 @@ export default class DirectlyList extends React.Component {
 
 const List = styled.ul`
   position: absolute;
+  z-index: 900;
   top: 64px;
   right: 36px;
   li {
